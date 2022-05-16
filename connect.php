@@ -1,7 +1,8 @@
-<?php 
-	
-	$connect = new mysqli('localhost' , 'root' , '' , 'crud');
-
-	if($connect->connect_error){
-		die('database connection problem');
-	}
+<?php
+    $dbconnect = new mysqli("localhost","root","","users","3306") or die("Query Unsuccessfull");
+    // if ($dbconnect) {
+    //     echo "Databses Connect";
+    // } else {
+    //     echo "Database not connected";
+    // }
+?>
