@@ -5,7 +5,7 @@
 
         $query = $dbconnect->query("DELETE FROM `user_info` WHERE id ='$id'");
         if ($query) {
-            header ("Location:show-data.php");
-        } else echo "Data Not Deleted";
+            header("Location:index.php?msgWarn=Data Deleted Successfully.");
+        } else header("Location:index.php?msgWarn=Data Not Deleted.");
     } 
 ?>

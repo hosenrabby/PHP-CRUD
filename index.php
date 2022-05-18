@@ -1,52 +1,108 @@
-<?php
-    include_once "connect.php";
-
-    if (isset($_POST['submit'])) {
-        $userName = $_POST['uname'];
-        $password = $_POST['pass'];
-        $phone = $_POST['phone'];
-        $email = $_POST['email'];
-
-        $query = $dbconnect->query("INSERT INTO `user_info`(`userName`, `password`, `mobile`, `email`) VALUES ('$userName','$password','$phone','$email')");
-        if ($query) {
-            header("Location:show-data.php");
-        } else "query unsuccessfull";
-    }
-?>
-
+<?php include_once "connect.php";?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP CRUD</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <title>CRUD APPLICATION</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,200;8..144,300;8..144,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="column column-60 column-offset-20">
-                <h2>CRUD</h2>
-                <h3>ADD YOUR DATA</h3>
-                
-                <form action="index.php" method="post">
-                    <label for="uname">User Name</label>
-                    <input type="text" name="uname">
-                    <label for="pass">Password</label>
-                    <input type="password" name="pass">
-                    <label for="phone">Phone Number</label>
-                    <input type="number" name="phone">
-                    <label for="email">E-mail</label>
-                    <input type="email" name="email">
 
-                    <button class="button" type="submit" name="submit">SUBMIT</button>
-                </form>
-                <a href="show-data.php"><button class="button">SHOW AVAILABLE DATA</button></a>
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-md-12 g-0">
+                <h1 class="display-5 text-center">COMPLETE CRUD APPLICATION WITH PHP</h1>
+                <h3 class="display-6 text-center">All Data Information</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+            <?php
+                if (isset($_GET['msgSuccess'])) {
+                    $msg = $_GET['msgSuccess'];
+                    echo "<div class='alert alert-success alert-dismissible'>
+                    $msg <i class='fa-solid fa-square-check'></i> 
+                <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+              </div>";
+                }
+                if (isset($_GET['msgWarn'])) {
+                    $msg = $_GET['msgWarn'];
+                    echo "<div class='alert alert-danger alert-dismissible' >
+                    $msg <i class='fa-solid fa-triangle-exclamation'></i> 
+                <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+              </div>";
+                }
+            ?><p class="alart-dismisable"></p>
+                <table class="table table-light table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>USER NAME</th>
+                            <th>PASSWORD</th>
+                            <th>MOBILE</th>
+                            <th>EMAIL</th>
+                            <th colspan="2">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $query = $dbconnect->query("SELECT * FROM `user_info`");
+                        $x=1;
+                        if ($query) {
+                            while ($sdata = $query->fetch_array()) {
+                    ?>
+                        <tr>
+                            <td><?=$x++?></td>
+                            <td><?=$sdata['name']?></td>
+                            <td><?=$sdata['userName']?></td>
+                            <td><?=$sdata['password']?></td>
+                            <td><?=$sdata['mobile']?></td>
+                            <td><?=$sdata['email']?></td>
+                            <td>
+                                <a class="btn btn-outline-success btn-sm" href="edit.php?edit=<?=$sdata['id']?>"><i class="fa-solid fa-pen-to-square"></i> EDIT</a>
+                                <a class="btn btn-outline-danger btn-sm" href="delete.php?delete=<?=$sdata['id']?>"><i class="fa-solid fa-trash-can"></i> DELETE</a>
+                            </td>
+                        </tr>
+                    <?php 
+                            }
+                        }
+                    ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>ID</td>
+                            <td>NAME</td>
+                            <td>USER NAME</td>
+                            <td>PASSWORD</td>
+                            <td>MOBILE</td>
+                            <td>EMAIL</td>
+                            <td colspan="2">ACTIONS</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <a href="add-data.php" class="btn btn-outline-dark">ADD DATA</a>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+    <div class="container_fluid">
+        <div class="row g-0">
+            <div class="col-md-12 g-0 copyr">
+                <p class="text-dark text-center">&copy;2021 <a href="hosenrabby.com">Hosen Rabby</a> All Rights Reserved</p>
             </div>
         </div>
     </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
