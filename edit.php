@@ -12,6 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,200;8..144,300;8..144,400&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -48,8 +49,10 @@
                 <label class="form-label" for="email">E-mail</label>
                 <input class="form-control" type="email" name="email" value="<?=$udata['email']?>"><br>
 
-                <button class="btn btn-outline-success" type="submit" name="submit">UPDATE</button>
-                <a href="index.php" class="btn btn-outline-dark">SHOW DATA</a>
+                <button class="btn btn-outline-success" type="submit" name="submit"><i class="fa-solid fa-file-pen"></i> UPDATE</button>
+                <a href="add-data.php" class="btn btn-outline-dark"><i class="fa-solid fa-file-circle-plus"></i> ADD DATA</a>
+                <a href="index.php" class="btn btn-outline-dark"><i class="fa-solid fa-eye"></i> SHOW DATA</a>
+                <a href="befor_upd_data.php" class="btn btn-outline-dark"><i class="fa-solid fa-brush"></i> BEFOR UPDATED DATA</a>
             </form>
             <?php 
                     }
@@ -66,7 +69,7 @@
                     $query = $dbconnect->query("UPDATE `user_info` SET `name`='$name',`userName`='$username',`password`='$pass',`mobile`='$phone',`email`='$email' WHERE `id` = '$id'");
                     echo $query;
                     if ($query) {
-                        header("Location:index.php?msgSuccess=Data Updated Successfully.");
+                        header("Location:befor_upd_data.php?msgSuccess=Data Updated Successfully, Showing befor Updated Data.");
                     } else header("Location:edit.php?msgWarn=Data Not Updated.");
                  }
             ?>

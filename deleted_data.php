@@ -20,7 +20,7 @@
         <div class="row ">
             <div class="col-md-12 g-0">
                 <h1 class="display-5 text-center">COMPLETE CRUD APPLICATION WITH PHP</h1>
-                <h3 class="display-6 text-center">All Data Information</h3>
+                <h3 class="display-6 text-center">Deleted Data Information</h3>
             </div>
         </div>
         <div class="row">
@@ -56,7 +56,7 @@
                     </thead>
                     <tbody>
                     <?php
-                        $query = $dbconnect->query("SELECT * FROM `user_info`");
+                        $query = $dbconnect->query("SELECT * FROM `show_dlt_data`");
                         $x=1;
                         if ($query) {
                             while ($sdata = $query->fetch_array()) {
@@ -69,8 +69,7 @@
                             <td><?=$sdata['mobile']?></td>
                             <td><?=$sdata['email']?></td>
                             <td>
-                                <a class="btn btn-outline-success btn-sm" href="edit.php?edit=<?=$sdata['id']?>"><i class="fa-solid fa-pen-to-square"></i> EDIT</a>
-                                <a class="btn btn-outline-danger btn-sm" href="delete.php?delete=<?=$sdata['id']?>"><i class="fa-solid fa-trash-can"></i> TEMP DELETE</a>
+                                <a class="btn btn-outline-danger btn-sm" href="delete.php?permDelete=<?=$sdata['id']?>"><i class="fa-solid fa-trash-can"></i> PERMANENTLY DELETE</a>
                             </td>
                         </tr>
                     <?php 
@@ -91,8 +90,8 @@
                     </tfoot>
                 </table>
                 <a href="add-data.php" class="btn btn-outline-dark"><i class="fa-solid fa-file-circle-plus"></i> ADD DATA</a>
+                <a href="index.php" class="btn btn-outline-dark"><i class="fa-solid fa-brush"></i> SHOW DATA</a>
                 <a href="befor_upd_data.php" class="btn btn-outline-dark"><i class="fa-solid fa-brush"></i> BEFOR UPDATED DATA</a>
-                <a href="deleted_data.php" class="btn btn-outline-dark"><i class="fa-solid fa-dumpster"></i> bin DATA</a>
             </div>
             <div class="col-md-1"></div>
         </div>
